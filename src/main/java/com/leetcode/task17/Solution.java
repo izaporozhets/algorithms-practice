@@ -27,12 +27,12 @@ class Solution {
         ls2.next.next.next = new ListNode(1);
 
         Solution solution = new Solution();
-        List<Integer> result = solution.mergeTwoLists(ls1, ls2);
+        ListNode result = solution.mergeTwoLists(ls1, ls2);
         System.out.println(result);
     }
 
-    public List<Integer> mergeTwoLists(ListNode list1, ListNode list2) {
-        if (list1 == null || list2 == null) { return Collections.emptyList(); }
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if (list1 == null && list2 == null) { return list1; }
 
         List<Integer> resultList = new ArrayList<>();
         while (list1 != null ) {
@@ -43,7 +43,15 @@ class Solution {
             resultList.add(list2.val);
             list2 = list2.next;
         }
-        resultList.sort(Integer::compare);
-        return resultList;
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+
+        Collections.sort(resultList);
+
+        for (Integer elem : resultList) {
+            current.next = new ListNode(elem);
+            current = current.next;
+        }
+        return dummy.next;
     }
 }
